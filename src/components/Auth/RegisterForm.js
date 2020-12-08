@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form, Input } from 'semantic-ui-react';
+import { Button, Form, Icon, Input } from 'semantic-ui-react';
 import firebase from '../../utils/firebase';
 import 'firebase/auth';
 
@@ -11,6 +11,9 @@ const initialStateForm = {
 
 export const RegisterForm = ({ setSelectedForm }) => {
   const [formData, setFormData] = useState(initialStateForm);
+  const [showPsswd, setShowPsswd] = useState(false);
+
+  const handleShowPsswd = () => setShowPsswd(!showPsswd);
 
   const onChange = ({ target }) => {
     setFormData({
@@ -26,7 +29,7 @@ export const RegisterForm = ({ setSelectedForm }) => {
   return (
     <div className="register-form">
       <h1>Empieza a escuchar con una cuenta de Musicfy gratis.</h1>
-      <Form onSubmit={onSubmit} onChange={onChange} autocomplete="off">
+      <Form onSubmit={onSubmit} onChange={onChange} autoComplete="false">
         <Form.Field>
           <Input
             type="text"
@@ -45,10 +48,16 @@ export const RegisterForm = ({ setSelectedForm }) => {
         </Form.Field>
         <Form.Field>
           <Input
-            type="password"
+            type={showPsswd ? 'text' : 'password'}
             name="psswd"
             placeholder="Contraseña"
-            icon="eye"
+            icon={
+              showPsswd ? (
+                <Icon name="eye slash outline" link onClick={handleShowPsswd} />
+              ) : (
+                <Icon name="eye" link onClick={handleShowPsswd} />
+              )
+            }
           />
         </Form.Field>
         <Button type="submit">Continuar</Button>
