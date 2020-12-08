@@ -1,17 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Form, Input } from 'semantic-ui-react';
 import firebase from '../../utils/firebase';
 import 'firebase/auth';
 
+const initialStateForm = {
+  username: '',
+  psswd: '',
+  email: '',
+};
+
 export const RegisterForm = ({ setSelectedForm }) => {
+  const [formData, setFormData] = useState(initialStateForm);
+
+  const onChange = ({ target }) => {
+    setFormData({
+      ...formData,
+      [target.name]: target.value,
+    });
+  };
+
   const onSubmit = () => {
-    console.log('Formulario enviado');
+    console.log('Formulario enviado:', formData);
   };
 
   return (
     <div className="register-form">
       <h1>Empieza a escuchar con una cuenta de Musicfy gratis.</h1>
-      <Form onSubmit={onSubmit}>
+      <Form onSubmit={onSubmit} onChange={onChange} autocomplete="off">
         <Form.Field>
           <Input
             type="text"
