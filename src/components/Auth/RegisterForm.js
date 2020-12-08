@@ -48,7 +48,20 @@ export const RegisterForm = ({ setSelectedForm }) => {
     setFormError(errors);
 
     if (formOk) {
-      console.log('form valido');
+      setLoading(true);
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(formData.email, formData.psswd)
+        .then(() => {
+          console.log('Registro completado!!');
+        })
+        .catch((error) => {
+          console.log('Error al registrar la cuenta');
+        })
+        .finally(() => {
+          setLoading(false);
+          setSelectedForm(null);
+        });
     }
   };
 
@@ -104,7 +117,9 @@ export const RegisterForm = ({ setSelectedForm }) => {
             </span>
           )}
         </Form.Field>
-        <Button type="submit">Continuar</Button>
+        <Button type="submit" loading={loading}>
+          Continuar
+        </Button>
       </Form>
       <div className="register-form-options">
         <p onClick={() => setSelectedForm(null)}>Volver</p>
