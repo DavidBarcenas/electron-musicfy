@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import { Button, Form, Icon, Input } from 'semantic-ui-react';
 import { validateEmail } from '../../utils/validations';
 import firebase from '../../utils/firebase';
@@ -56,7 +57,7 @@ export const RegisterForm = ({ setSelectedForm }) => {
           console.log('Registro completado!!');
         })
         .catch((error) => {
-          console.log('Error al registrar la cuenta');
+          toast.error('Error al crear la cuenta');
         })
         .finally(() => {
           setLoading(false);

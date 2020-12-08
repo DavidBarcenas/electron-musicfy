@@ -5,6 +5,9 @@
 @import 'pages/auth';
 
 // Component
+@import 'components/toast';
+
+// Register / Login
 @import 'components/auth';
 @import 'components/auth-options';
 @import 'components/register-form';
