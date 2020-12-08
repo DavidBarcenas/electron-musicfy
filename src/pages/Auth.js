@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { LoginForm } from '../components/Auth/LoginForm';
 import { RegisterForm } from '../components/Auth/RegisterForm';
 import { AuthOptions } from '../components/Auth/AuthOptions';
+import LogoWhite from '../assets/img/logo-name-white.png';
 
 export const Auth = () => {
   const [selectedForm, setSelectedForm] = useState(null);
@@ -18,5 +19,14 @@ export const Auth = () => {
     }
   };
 
-  return <div className="auth"></div>;
+  return (
+    <div className="auth">
+      <div className="auth-box">
+        <div className="auth-box-logo">
+          <img src={LogoWhite} alt="Musicfy" />
+        </div>
+        {handleForm()}
+      </div>
+    </div>
+  );
 };

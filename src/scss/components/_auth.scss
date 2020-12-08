@@ -1,0 +1,37 @@
+.auth {
+  background: url('../../assets/img/background-auth.jpg') no-repeat center /
+    cover fixed;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+
+  &::after {
+    content: '';
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba($dark, 0.75);
+    position: absolute;
+    z-index: -1;
+  }
+}
+
+.auth-box {
+  background-color: $background-grey-dark;
+  width: 500px;
+  padding: 50px 70px;
+  border-radius: 10px;
+
+  &-logo {
+    img {
+      width: 200px;
+      max-width: 100%;
+      margin: auto;
+    }
+  }
+}
