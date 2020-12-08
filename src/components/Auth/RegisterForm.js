@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, Icon, Input } from 'semantic-ui-react';
+import { validateEmail } from '../../utils/validations';
 import firebase from '../../utils/firebase';
 import 'firebase/auth';
 
@@ -12,6 +13,8 @@ const initialStateForm = {
 export const RegisterForm = ({ setSelectedForm }) => {
   const [formData, setFormData] = useState(initialStateForm);
   const [showPsswd, setShowPsswd] = useState(false);
+  const [formError, setFormError] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const handleShowPsswd = () => setShowPsswd(!showPsswd);
 
@@ -23,7 +26,30 @@ export const RegisterForm = ({ setSelectedForm }) => {
   };
 
   const onSubmit = () => {
-    console.log('Formulario enviado:', formData);
+    setFormError({});
+    let errors = {};
+    let formOk = true;
+
+    if (!validateEmail(formData.email)) {
+      errors.email = true;
+      formOk = false;
+    }
+
+    if (formData.psswd.length < 6) {
+      errors.psswd = true;
+      formOk = false;
+    }
+
+    if (!formData.username) {
+      errors.username = true;
+      formOk = false;
+    }
+
+    setFormError(errors);
+
+    if (formOk) {
+      console.log('form valido');
+    }
   };
 
   return (
@@ -36,7 +62,13 @@ export const RegisterForm = ({ setSelectedForm }) => {
             name="username"
             placeholder="¿Cómo deberíamos llamarte?"
             icon="user circle outline"
+            error={formError.username}
           />
+          {formError.username && (
+            <span className="error-text">
+              Por favor, introduce un nombre de usuario.
+            </span>
+          )}
         </Form.Field>
         <Form.Field>
           <Input
@@ -44,13 +76,20 @@ export const RegisterForm = ({ setSelectedForm }) => {
             name="email"
             placeholder="Correo electrónico"
             icon="mail outline"
+            error={formError.email}
           />
+          {formError.username && (
+            <span className="error-text">
+              Por favor, introduce un correo electrónico válido.
+            </span>
+          )}
         </Form.Field>
         <Form.Field>
           <Input
             type={showPsswd ? 'text' : 'password'}
             name="psswd"
             placeholder="Contraseña"
+            error={formError.psswd}
             icon={
               showPsswd ? (
                 <Icon name="eye slash outline" link onClick={handleShowPsswd} />
@@ -59,6 +98,11 @@ export const RegisterForm = ({ setSelectedForm }) => {
               )
             }
           />
+          {formError.username && (
+            <span className="error-text">
+              La contraseña debe ser mayor a 5 caracteres.
+            </span>
+          )}
         </Form.Field>
         <Button type="submit">Continuar</Button>
       </Form>

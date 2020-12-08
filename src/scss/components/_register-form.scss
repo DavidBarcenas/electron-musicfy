@@ -11,6 +11,12 @@
   .ui.form .field {
     .input {
       margin-bottom: 5px;
+
+      &.error {
+        input {
+          border-bottom: 1px solid $danger;
+        }
+      }
     }
     input {
       background: $background-grey;
@@ -28,12 +34,6 @@
     i {
       color: $light;
       font-size: 19px;
-    }
-
-    &.error {
-      input {
-        border-bottom: 1px solid $danger;
-      }
     }
   }
 
