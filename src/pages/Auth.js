@@ -15,7 +15,7 @@ export const Auth = () => {
         return <RegisterForm />;
 
       default:
-        return <AuthOptions />;
+        return <AuthOptions setSelectedForm={setSelectedForm} />;
     }
   };
 

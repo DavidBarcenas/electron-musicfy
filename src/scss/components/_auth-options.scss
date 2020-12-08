@@ -1,0 +1,32 @@
+.auth-options {
+  margin-top: 50px;
+
+  h2 {
+    font-size: 40px;
+    color: $light;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .ui.button.register,
+  .ui.button.login {
+    width: 100%;
+    text-transform: uppercase;
+    border-radius: 50px;
+    padding: 20px 0;
+    font-size: 17px;
+    letter-spacing: 3px;
+  }
+
+  .ui.button.register {
+    background-color: $primary-color;
+    color: $light;
+    margin-bottom: 20px;
+  }
+
+  .ui.button.login {
+    background-color: $light;
+    color: $dark;
+  }
+}
