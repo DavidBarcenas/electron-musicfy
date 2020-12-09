@@ -36,18 +36,17 @@
       font-size: 19px;
     }
   }
-}
-
-.ui.form button {
-  width: 100%;
-  background-color: $primary-color;
-  color: $light;
-  text-transform: uppercase;
-  margin-top: 10px;
-  border-radius: 50px;
-  padding: 17px 0;
-  font-size: 14px;
-  letter-spacing: 3px;
+  .ui.form button {
+    width: 100%;
+    background-color: $primary-color;
+    color: $light;
+    text-transform: uppercase;
+    margin-top: 10px;
+    border-radius: 50px;
+    padding: 17px 0;
+    font-size: 14px;
+    letter-spacing: 3px;
+  }
 }
 
 .error-text {

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
 import { Button, Form, Icon, Input } from 'semantic-ui-react';
 import { validateEmail } from '../../utils/validations';
+import firebase from '../../utils/firebase';
+import 'firebase/auth';
 
 const initialState = {
   email: '',
@@ -12,7 +15,7 @@ export const LoginForm = ({ setSelectedForm }) => {
   const [formData, setFormData] = useState(initialState);
   const [formError, setFormError] = useState({});
   const [loading, setLoading] = useState(false);
-  const [userActive, setUserActive] = useState(false);
+  const [userActive, setUserActive] = useState(true);
   const [user, setUser] = useState(null);
 
   const handleShowPsswd = () => setShowPsswd(!showPsswd);
@@ -41,7 +44,22 @@ export const LoginForm = ({ setSelectedForm }) => {
     setFormError(errors);
 
     if (formOk) {
-      console.log('login correcto');
+      setLoading(true);
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(formData.email, formData.psswd)
+        .then((resp) => {
+          setUser(resp.user);
+          setUserActive(resp.user.emailVerified);
+
+          if (!resp.user.emailVerified) {
+            toast.warning('Tienes que verificar tu correo electrónico.');
+          }
+        })
+        .catch((err) => handleError(err.code))
+        .finally(() => {
+          setLoading(false);
+        });
     }
   };
 
@@ -84,8 +102,19 @@ export const LoginForm = ({ setSelectedForm }) => {
             </span>
           )}
         </Form.Field>
-        <Button type="submit">Iniciar Sesión</Button>
+        <Button type="submit" loading={loading}>
+          Iniciar Sesión
+        </Button>
       </Form>
+
+      {!userActive && (
+        <ButtonResetSEmailVerification
+          user={user}
+          setLoading={setLoading}
+          setUserActive={setUserActive}
+        />
+      )}
+
       <div className="login-form-options">
         <p onClick={() => setSelectedForm(null)}>Volver</p>
         <p>
@@ -96,3 +125,45 @@ export const LoginForm = ({ setSelectedForm }) => {
     </div>
   );
 };
+
+function ButtonResetSEmailVerification({ user, setLoading, setUserActive }) {
+  const resendVerificationEmail = () => {
+    user
+      .sendEmailVerification()
+      .then(() => {
+        toast.success('Se ha enviado el email de verificación.');
+      })
+      .catch((error) => {
+        handleError(error.code);
+      })
+      .finally(() => {
+        setLoading(false);
+        setUserActive(true);
+      });
+  };
+
+  return (
+    <div className="resend-verification-email">
+      <p>
+        Si no has recibido el email de verificación da{' '}
+        <span onClick={resendVerificationEmail}>click aquí</span>
+      </p>
+    </div>
+  );
+}
+
+function handleError(code) {
+  switch (code) {
+    case 'auth/user-not-found':
+      toast.warning('El usuario o la contraseña son incorrectos');
+      break;
+    case 'auth/wrong-password':
+      toast.warning('El usuario o la contraseña son incorrectos');
+      break;
+    case 'auth/too-many-requests':
+      toast.warning(
+        'Hes enviado demasiadas solicitudes de verificación de email'
+      );
+      break;
+  }
+}
