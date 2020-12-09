@@ -1,20 +1,33 @@
 import React, { useState } from 'react';
 import { Button, Form, Icon, Input } from 'semantic-ui-react';
 
+const initialState = {
+  email: '',
+  psswd: '',
+};
+
 export const LoginForm = ({ setSelectedForm }) => {
   const [showPsswd, setShowPsswd] = useState(false);
+  const [formData, setFormData] = useState(initialState);
 
   const handleShowPsswd = () => setShowPsswd(!showPsswd);
 
+  const onChange = ({ target }) => {
+    setFormData({
+      ...formData,
+      [target.name]: target.value,
+    });
+  };
+
   const onSubmit = () => {
-    console.log('Login...');
+    console.log('Login...', formData);
   };
 
   return (
     <div className="login-form">
       <h1>Música para todos.</h1>
 
-      <Form onSubmit={onSubmit}>
+      <Form onSubmit={onSubmit} onChange={onChange} autoComplete="off">
         <Form.Field>
           <Input
             type="email"
