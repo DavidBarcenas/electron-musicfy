@@ -55,6 +55,7 @@ export const RegisterForm = ({ setSelectedForm }) => {
         .createUserWithEmailAndPassword(formData.email, formData.psswd)
         .then(() => {
           console.log('Registro completado!!');
+          changeUserName();
         })
         .catch((error) => {
           toast.error('Error al crear la cuenta');
@@ -64,6 +65,17 @@ export const RegisterForm = ({ setSelectedForm }) => {
           setSelectedForm(null);
         });
     }
+  };
+
+  const changeUserName = () => {
+    firebase
+      .auth()
+      .currentUser.updateProfile({
+        displayName: formData.username,
+      })
+      .catch(() => {
+        toast.error('Error al asignar el nombre de usuario.');
+      });
   };
 
   return (
