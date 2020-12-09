@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, Icon, Input } from 'semantic-ui-react';
+import { validateEmail } from '../../utils/validations';
 
 const initialState = {
   email: '',
@@ -9,6 +10,10 @@ const initialState = {
 export const LoginForm = ({ setSelectedForm }) => {
   const [showPsswd, setShowPsswd] = useState(false);
   const [formData, setFormData] = useState(initialState);
+  const [formError, setFormError] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [userActive, setUserActive] = useState(false);
+  const [user, setUser] = useState(null);
 
   const handleShowPsswd = () => setShowPsswd(!showPsswd);
 
@@ -20,7 +25,24 @@ export const LoginForm = ({ setSelectedForm }) => {
   };
 
   const onSubmit = () => {
-    console.log('Login...', formData);
+    setFormError({});
+    let errors = {};
+    let formOk = true;
+
+    if (!validateEmail(formData.email)) {
+      errors.email = true;
+      formOk = false;
+    }
+    if (formData.psswd.length < 6) {
+      errors.psswd = true;
+      formOk = false;
+    }
+
+    setFormError(errors);
+
+    if (formOk) {
+      console.log('login correcto');
+    }
   };
 
   return (
@@ -34,13 +56,20 @@ export const LoginForm = ({ setSelectedForm }) => {
             name="email"
             placeholder="Correo electrónico"
             icon="mail outline"
+            error={formError.email}
           />
+          {formError.email && (
+            <span className="error-text">
+              Por favor, introduce un correo electrónico válido.
+            </span>
+          )}
         </Form.Field>
         <Form.Field>
           <Input
             type={showPsswd ? 'text' : 'password'}
             name="psswd"
             placeholder="Contraseña"
+            error={formError.email}
             icon={
               showPsswd ? (
                 <Icon name="eye slash outline" link onClick={handleShowPsswd} />
@@ -49,6 +78,11 @@ export const LoginForm = ({ setSelectedForm }) => {
               )
             }
           />
+          {formError.psswd && (
+            <span className="error-text">
+              Por favor, introduce una contraseña válida.
+            </span>
+          )}
         </Form.Field>
         <Button type="submit">Iniciar Sesión</Button>
       </Form>
