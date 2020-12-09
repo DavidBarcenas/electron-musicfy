@@ -54,10 +54,10 @@ export const RegisterForm = ({ setSelectedForm }) => {
         .auth()
         .createUserWithEmailAndPassword(formData.email, formData.psswd)
         .then(() => {
-          console.log('Registro completado!!');
           changeUserName();
+          sendVerificationEmail();
         })
-        .catch((error) => {
+        .catch(() => {
           toast.error('Error al crear la cuenta');
         })
         .finally(() => {
@@ -75,6 +75,18 @@ export const RegisterForm = ({ setSelectedForm }) => {
       })
       .catch(() => {
         toast.error('Error al asignar el nombre de usuario.');
+      });
+  };
+
+  const sendVerificationEmail = () => {
+    firebase
+      .auth()
+      .currentUser.sendEmailVerification()
+      .then(() => {
+        toast.success('Se ha enviado un email de verificación.');
+      })
+      .catch(() => {
+        toast.error('Error al enviar el email de verificación.');
       });
   };
 
