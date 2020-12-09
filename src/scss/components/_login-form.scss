@@ -1,0 +1,98 @@
+.login-form {
+  margin-top: 50px;
+
+  h1 {
+    color: $light;
+    text-align: center;
+    font-size: 35px;
+    padding-bottom: 20px;
+  }
+
+  .ui.form .field {
+    .input {
+      margin-bottom: 5px;
+
+      &.error {
+        input {
+          border-bottom: 1px solid $danger;
+        }
+      }
+    }
+    input {
+      background: $background-grey;
+      border: 0;
+      font-size: 16px;
+      color: $light;
+
+      &:hover,
+      &:active,
+      &:focus {
+        background-color: $background-grey-hover;
+      }
+    }
+
+    i {
+      color: $light;
+      font-size: 19px;
+    }
+  }
+}
+
+.ui.form button {
+  width: 100%;
+  background-color: $primary-color;
+  color: $light;
+  text-transform: uppercase;
+  margin-top: 10px;
+  border-radius: 50px;
+  padding: 17px 0;
+  font-size: 14px;
+  letter-spacing: 3px;
+}
+
+.error-text {
+  color: $light;
+  padding-left: 15px;
+}
+
+.login-form-options {
+  margin-top: 50px;
+  color: $light;
+  text-align: center;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: bold;
+
+  p:first-of-type {
+    margin-bottom: 40px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  p:last-of-type {
+    color: $font-grey;
+    span {
+      margin-left: 8px;
+      color: $light;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}
+
+.resend-verification-email {
+  color: $light;
+  padding: 20px 20px 0 20px;
+  text-align: center;
+
+  span {
+    color: $primary-color;
+    font-weight: bold;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
