@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Button, Form, Input } from 'semantic-ui-react';
+import { Button, Form, Icon, Input } from 'semantic-ui-react';
 
 export const LoginForm = ({ setSelectedForm }) => {
-  const [state, setstate] = useState(null);
+  const [showPsswd, setShowPsswd] = useState(false);
+
+  const handleShowPsswd = () => setShowPsswd(!showPsswd);
 
   const onSubmit = () => {
     console.log('Login...');
@@ -23,10 +25,16 @@ export const LoginForm = ({ setSelectedForm }) => {
         </Form.Field>
         <Form.Field>
           <Input
-            type="password"
+            type={showPsswd ? 'text' : 'password'}
             name="psswd"
             placeholder="Contraseña"
-            icon="eye"
+            icon={
+              showPsswd ? (
+                <Icon name="eye slash outline" link onClick={handleShowPsswd} />
+              ) : (
+                <Icon name="eye" link onClick={handleShowPsswd} />
+              )
+            }
           />
         </Form.Field>
         <Button type="submit">Iniciar Sesión</Button>
