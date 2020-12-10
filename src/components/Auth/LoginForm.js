@@ -165,5 +165,8 @@ function handleError(code) {
         'Hes enviado demasiadas solicitudes de verificación de email'
       );
       break;
+    default:
+      // nothing
+      break;
   }
 }
