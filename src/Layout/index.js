@@ -1,13 +1,14 @@
 import React from 'react';
-import { Grid } from 'semantic-ui-react';
 import { Routes } from '../routes';
+import { Grid } from 'semantic-ui-react';
+import { MenuLeft } from '../components/MenuLeft';
 
 export const LoggedLayout = ({ user }) => {
   return (
     <Grid className="logged-layout">
       <Grid.Row>
         <Grid.Column width={3}>
-          <h2>MenuLeft</h2>
+          <MenuLeft user={user} />
         </Grid.Column>
         <Grid.Column className="logged-layout-main" width={13}>
           <h2>Main</h2>
