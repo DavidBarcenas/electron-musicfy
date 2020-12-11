@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Icon, Menu } from 'semantic-ui-react';
+import { isUserAdmnin } from '../../utils/api';
 
 export const MenuLeft = ({ user }) => {
   const location = useLocation();
   const [activeMenu, setActiveMenu] = useState(location.pathname);
+  const [userAdmin, setUserAdmin] = useState(false);
+
+  useEffect(() => {
+    isUserAdmnin(user.uid).then((resp) => setUserAdmin(resp));
+  }, [user.uid]);
 
   const handleMenu = (e, menu) => {
     setActiveMenu(menu.to);
@@ -30,14 +36,16 @@ export const MenuLeft = ({ user }) => {
           <Icon name="music" /> Artistas
         </Menu.Item>
       </div>
-      <div className="footer">
-        <Menu.Item>
-          <Icon name="plus square outline" /> Nuevo artista
-        </Menu.Item>
-        <Menu.Item>
-          <Icon name="plus square outline" /> Nueva canción
-        </Menu.Item>
-      </div>
+      {userAdmin && (
+        <div className="footer">
+          <Menu.Item>
+            <Icon name="plus square outline" /> Nuevo artista
+          </Menu.Item>
+          <Menu.Item>
+            <Icon name="plus square outline" /> Nueva canción
+          </Menu.Item>
+        </div>
+      )}
     </Menu>
   );
 };
