@@ -1,0 +1,26 @@
+.ui.modal.basic-modal {
+  background-color: $background-grey;
+  border-radius: 12px;
+
+  .header {
+    text-align: center;
+    color: $light;
+    background: transparent;
+
+    h3 {
+      margin: 0;
+    }
+
+    i {
+      position: absolute;
+      right: 10px;
+      top: 16px;
+      cursor: pointer;
+    }
+  }
+
+  .content {
+    color: $light;
+    background-color: transparent;
+  }
+}
