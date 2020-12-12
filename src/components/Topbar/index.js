@@ -2,15 +2,13 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Icon, Image } from 'semantic-ui-react';
 import UserImage from '../../assets/img/user.png';
+import firebase from '../../utils/firebase';
+import 'firebase/auth';
 
 export const Topbar = ({ user }) => {
   const history = useHistory();
-
   const goBack = () => history.goBack();
-
-  const handleLogout = () => {
-    console.log('cerrar sesión');
-  };
+  const handleLogout = () => firebase.auth().signOut();
 
   return (
     <div className="top-bar">
