@@ -1,12 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Icon, Image } from 'semantic-ui-react';
 import UserImage from '../../assets/img/user.png';
 
 export const Topbar = ({ user }) => {
-  const goBack = () => {
-    console.log('Go back!!!');
-  };
+  const history = useHistory();
+
+  const goBack = () => history.goBack();
 
   const handleLogout = () => {
     console.log('cerrar sesión');
