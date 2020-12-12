@@ -8,6 +8,9 @@ export const MenuLeft = ({ user }) => {
   const location = useLocation();
   const [activeMenu, setActiveMenu] = useState(location.pathname);
   const [userAdmin, setUserAdmin] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [titleModal, setTitleModal] = useState('');
+  const [contentModal, setContentModal] = useState(null);
 
   useEffect(() => {
     isUserAdmnin(user.uid).then((resp) => setUserAdmin(resp));
@@ -15,6 +18,28 @@ export const MenuLeft = ({ user }) => {
 
   const handleMenu = (e, menu) => {
     setActiveMenu(menu.to);
+  };
+
+  const handlerModal = (type) => {
+    switch (type) {
+      case 'artist':
+        setTitleModal('Nuevo artista');
+        setContentModal('Formulario nuevo artista');
+        setShowModal(true);
+        break;
+
+      case 'song':
+        setTitleModal('Nueva canción');
+        setContentModal('Formulario nueva canción');
+        setShowModal(true);
+        break;
+
+      default:
+        setTitleModal(null);
+        setContentModal(null);
+        setShowModal(false);
+        break;
+    }
   };
 
   return (
@@ -40,17 +65,17 @@ export const MenuLeft = ({ user }) => {
         </div>
         {userAdmin && (
           <div className="footer">
-            <Menu.Item>
+            <Menu.Item onClick={() => handlerModal('artist')}>
               <Icon name="plus square outline" /> Nuevo artista
             </Menu.Item>
-            <Menu.Item>
+            <Menu.Item onClick={() => handlerModal('song')}>
               <Icon name="plus square outline" /> Nueva canción
             </Menu.Item>
           </div>
         )}
       </Menu>
-      <BasicModal show={true} setShow={null} title="test title">
-        <h1>Contenido Modal</h1>
+      <BasicModal show={showModal} setShow={setShowModal} title={titleModal}>
+        {contentModal}
       </BasicModal>
     </>
   );

@@ -2,7 +2,7 @@ import React from 'react';
 import { Icon, Modal } from 'semantic-ui-react';
 
 export const BasicModal = ({ show, setShow, title, children }) => {
-  const handleClose = () => null; //setShow(false);
+  const handleClose = () => setShow(false);
 
   return (
     <Modal
