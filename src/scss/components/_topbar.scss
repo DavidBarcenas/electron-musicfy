@@ -1,0 +1,44 @@
+.top-bar {
+  height: 50px;
+  background: $background-grey-dark-light;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+
+  &-left {
+    i {
+      font-size: 20px;
+      cursor: pointer;
+    }
+  }
+
+  &-right {
+    display: flex;
+    align-items: center;
+
+    a {
+      display: flex;
+      align-items: center;
+      margin-right: 20px;
+      color: $light;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+
+    img {
+      width: 25px;
+      height: 25px;
+      margin-right: 10px;
+      border-radius: 50px;
+    }
+
+    i {
+      cursor: pointer;
+      position: relative;
+      top: -2px;
+    }
+  }
+}
