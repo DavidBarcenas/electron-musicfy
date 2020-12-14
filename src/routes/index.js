@@ -1,8 +1,9 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { Home } from '../pages/Home';
+import { Settings } from '../pages/Settings';
 
-export const Routes = () => {
+export const Routes = ({ user }) => {
   return (
     <div>
       <Switch>
@@ -13,7 +14,7 @@ export const Routes = () => {
           <h2>Artistas</h2>
         </Route>
         <Route exact path="/settings">
-          <h2>Configuraciones</h2>
+          <Settings user={user} />
         </Route>
         <Redirect
           to={{
