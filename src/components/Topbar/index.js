@@ -17,7 +17,7 @@ export const Topbar = ({ user }) => {
       </div>
       <div className="top-bar-right">
         <Link to="/settings">
-          <Image src={UserImage} />
+          <Image src={user.photoURL ? user.photoURL : UserImage} />
           {user.displayName}
         </Link>
         <Icon name="power off" onClick={handleLogout} />

@@ -5,7 +5,7 @@ import { Grid } from 'semantic-ui-react';
 import { MenuLeft } from '../components/MenuLeft';
 import { Topbar } from '../components/Topbar';
 
-export const LoggedLayout = ({ user }) => {
+export const LoggedLayout = ({ user, setReloadApp }) => {
   return (
     <Router>
       <Grid className="logged-layout">
@@ -15,7 +15,7 @@ export const LoggedLayout = ({ user }) => {
           </Grid.Column>
           <Grid.Column className="logged-layout-main" width={13}>
             <Topbar user={user} />
-            <Routes user={user} />
+            <Routes user={user} setReloadApp={setReloadApp} />
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>

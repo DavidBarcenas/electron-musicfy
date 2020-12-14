@@ -7,7 +7,7 @@ import 'firebase/auth';
 import { useDropzone } from 'react-dropzone';
 import { toast } from 'react-toastify';
 
-export const UploadAvatar = ({ user }) => {
+export const UploadAvatar = ({ user, setReloadApp }) => {
   const [avatarUrl, setAvatarUrl] = useState(user.photoURL);
 
   const onDrop = useCallback((accptedFiles) => {
@@ -34,10 +34,12 @@ export const UploadAvatar = ({ user }) => {
       .storage()
       .ref(`avatar/${user.uid}`)
       .getDownloadURL()
-      .then((resp) => {
-        firebase.auth().currentUser.updateProfile({ photoURL: resp });
+      .then(async (resp) => {
+        await firebase.auth().currentUser.updateProfile({ photoURL: resp });
+        setReloadApp((prevState) => !prevState);
       })
-      .catch(() => {
+      .catch((err) => {
+        console.log(err);
         toast.error('Error al actualizar el avatar.');
       });
   };

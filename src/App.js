@@ -8,6 +8,7 @@ import 'firebase/auth';
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [reloadApp, setReloadApp] = useState(false);
 
   firebase.auth().onAuthStateChanged((currentUser) => {
     if (!currentUser?.emailVerified) {
@@ -26,7 +27,11 @@ function App() {
 
   return (
     <>
-      {user ? <LoggedLayout user={user} /> : <Auth />}
+      {user ? (
+        <LoggedLayout user={user} setReloadApp={setReloadApp} />
+      ) : (
+        <Auth />
+      )}
       <ToastContainer
         position="top-center"
         autoClose={5000}

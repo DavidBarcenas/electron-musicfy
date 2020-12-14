@@ -3,7 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { Home } from '../pages/Home';
 import { Settings } from '../pages/Settings';
 
-export const Routes = ({ user }) => {
+export const Routes = ({ user, setReloadApp }) => {
   return (
     <div>
       <Switch>
@@ -14,7 +14,7 @@ export const Routes = ({ user }) => {
           <h2>Artistas</h2>
         </Route>
         <Route exact path="/settings">
-          <Settings user={user} />
+          <Settings user={user} setReloadApp={setReloadApp} />
         </Route>
         <Redirect
           to={{
