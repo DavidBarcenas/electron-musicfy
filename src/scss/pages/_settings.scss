@@ -6,3 +6,21 @@
     margin-bottom: 50px;
   }
 }
+
+.avatar-name {
+  display: flex;
+  align-items: center;
+
+  .user-avatar {
+    margin: 0;
+    border: 2px dashed #9a9a9a;
+    border-radius: 50%;
+    padding: 10px;
+    margin-bottom: 20px;
+
+    .ui.image {
+      width: 100px;
+      border-radius: 500px;
+    }
+  }
+}
