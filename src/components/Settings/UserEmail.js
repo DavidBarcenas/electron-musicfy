@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Button, Form, Icon, Input } from 'semantic-ui-react';
 import { toast } from 'react-toastify';
+import { reauthenticate } from '../../utils/api';
+import { alertErrors } from '../../utils/alertErrors';
 import firebase from '../../utils/firebase';
 import 'firebase/auth';
-import { reauthenticate } from '../../utils/api';
 
 export const UserEmail = ({
   user,
@@ -44,7 +45,8 @@ function ChangeEmailForm({ email, setShowModal }) {
       setLoading(true);
       reauthenticate(formData.psswd)
         .then(() => {})
-        .catch(() => {});
+        .catch((err) => alertErrors(err?.code))
+        .finally(() => setLoading(false));
     }
   };
 
