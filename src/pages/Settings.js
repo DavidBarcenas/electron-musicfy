@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { BasicModal } from '../components/Modal';
 import { UploadAvatar } from '../components/Settings/UploadAvatar';
+import { UserEmail } from '../components/Settings/UserEmail';
 import { UserName } from '../components/Settings/UserName';
 
 export const Settings = ({ user, setReloadApp }) => {
@@ -21,6 +22,12 @@ export const Settings = ({ user, setReloadApp }) => {
           setReloadApp={setReloadApp}
         />
       </div>
+      <UserEmail
+        user={user}
+        setShowModal={setShowModal}
+        setTitleModal={setTitleModal}
+        setContentModal={setContentModal}
+      />
       <BasicModal show={showModal} setShow={setShowModal} title={titleModal}>
         {contentModal}
       </BasicModal>

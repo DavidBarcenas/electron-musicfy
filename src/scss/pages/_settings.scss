@@ -25,12 +25,22 @@
   }
 }
 
-.user-name {
+.user-name,
+.user-email {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
 
   h2 {
     margin: 0 20px;
+  }
+}
+
+.user-email {
+  margin-top: 40px;
+
+  h3 {
+    margin: 0;
   }
 }
