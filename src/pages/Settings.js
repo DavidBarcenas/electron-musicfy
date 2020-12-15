@@ -18,6 +18,7 @@ export const Settings = ({ user, setReloadApp }) => {
           setShowModal={setShowModal}
           setTitleModal={setTitleModal}
           setContentModal={setContentModal}
+          setReloadApp={setReloadApp}
         />
       </div>
       <BasicModal show={showModal} setShow={setShowModal} title={titleModal}>
