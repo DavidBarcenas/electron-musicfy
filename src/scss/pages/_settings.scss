@@ -26,7 +26,8 @@
 }
 
 .user-name,
-.user-email {
+.user-email,
+.user-password {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -37,7 +38,8 @@
   }
 }
 
-.user-email {
+.user-email,
+.user-password {
   margin-top: 40px;
 
   h3 {

@@ -30,6 +30,7 @@ export const UserEmail = ({
 
 function ChangeEmailForm({ email, setShowModal }) {
   const [formData, setformData] = useState(email);
+  const [showPsswd, setShowPsswd] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const onSubmit = () => {
@@ -59,9 +60,15 @@ function ChangeEmailForm({ email, setShowModal }) {
       </Form.Field>
       <Form.Field>
         <Input
-          type="password"
+          type={showPsswd ? 'test' : 'password'}
           placeholder="Contraseña"
-          icon={<Icon name="eye" link />}
+          icon={
+            <Icon
+              name={showPsswd ? 'eye slash outline' : 'eye'}
+              onClick={() => setShowPsswd(!showPsswd)}
+              link
+            />
+          }
           onChange={(e) => setformData(e.target.value)}
         />
       </Form.Field>
