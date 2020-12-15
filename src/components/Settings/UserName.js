@@ -12,7 +12,7 @@ export const UserName = ({
   setReloadApp,
 }) => {
   const onEdit = () => {
-    setTitleModal('Actualizar Nombre');
+    setTitleModal('Actualizar nombre');
     setContentModal(
       <ChangeDisplayNameForm
         displayName={user.displayName}

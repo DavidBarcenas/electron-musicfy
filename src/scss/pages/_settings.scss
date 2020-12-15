@@ -27,7 +27,7 @@
 
 .user-name,
 .user-email,
-.user-password {
+.user-psswd {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -39,7 +39,7 @@
 }
 
 .user-email,
-.user-password {
+.user-psswd {
   margin-top: 40px;
 
   h3 {
