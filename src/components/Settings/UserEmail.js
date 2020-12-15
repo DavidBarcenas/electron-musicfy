@@ -44,9 +44,27 @@ function ChangeEmailForm({ email, setShowModal }) {
     } else {
       setLoading(true);
       reauthenticate(formData.psswd)
-        .then(() => {})
-        .catch((err) => alertErrors(err?.code))
-        .finally(() => setLoading(false));
+        .then(() => {
+          const currentUser = firebase.auth().currentUser;
+          currentUser
+            .updateEmail(formData.email)
+            .then(() => {
+              toast.success('Email actualizado.');
+              setLoading(false);
+              setShowModal(false);
+              currentUser.sendEmailVerification().then(() => {
+                firebase.auth().signOut();
+              });
+            })
+            .catch((err) => {
+              alertErrors(err?.code);
+              setLoading(false);
+            });
+        })
+        .catch((err) => {
+          alertErrors(err?.code);
+          setLoading(false);
+        });
     }
   };
 
