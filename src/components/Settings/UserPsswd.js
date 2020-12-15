@@ -18,8 +18,19 @@ export const UserPsswd = ({ setShowModal, setTitleModal, setContentModal }) => {
   );
 };
 
+const initShowPsswd = {
+  prev: false,
+  current: false,
+  repeat: false,
+};
+
 function ChangePsswdForm() {
   const [loading, setloading] = useState(false);
+  const [showPsswd, setShowPsswd] = useState(initShowPsswd);
+
+  const handleShowPsswd = (field) => {
+    setShowPsswd({ ...initShowPsswd, [field]: !showPsswd[field] });
+  };
 
   const onSubmit = () => {
     console.log('enviando form');
@@ -29,23 +40,41 @@ function ChangePsswdForm() {
     <Form onSubmit={onSubmit}>
       <Form.Field>
         <Input
-          type="password"
+          type={showPsswd.prev ? 'text' : 'password'}
           placeholder="Contraseña actual"
-          icon={<Icon name="eye" link />}
+          icon={
+            <Icon
+              name={showPsswd.prev ? 'eye slash outline' : 'eye'}
+              link
+              onClick={() => handleShowPsswd('prev')}
+            />
+          }
         />
       </Form.Field>
       <Form.Field>
         <Input
-          type="password"
+          type={showPsswd.current ? 'text' : 'password'}
           placeholder="Nueva contraseña"
-          icon={<Icon name="eye" link />}
+          icon={
+            <Icon
+              name={showPsswd.current ? 'eye slash outline' : 'eye'}
+              link
+              onClick={() => handleShowPsswd('current')}
+            />
+          }
         />
       </Form.Field>
       <Form.Field>
         <Input
-          type="password"
+          type={showPsswd.repeat ? 'text' : 'password'}
           placeholder="Repetir nueva contraseña"
-          icon={<Icon name="eye" link />}
+          icon={
+            <Icon
+              name={showPsswd.repeat ? 'eye slash outline' : 'eye'}
+              link
+              onClick={() => handleShowPsswd('repeat')}
+            />
+          }
         />
       </Form.Field>
       <Button type="submit" loading={loading}>
