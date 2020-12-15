@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'semantic-ui-react';
+import { Button, Form, Input } from 'semantic-ui-react';
 import firebase from '../../utils/firebase';
 import 'firebase/auth';
 
@@ -11,7 +11,12 @@ export const UserName = ({
 }) => {
   const onEdit = () => {
     setTitleModal('Actualizar Nombre');
-    setContentModal(<h3>Formulario</h3>);
+    setContentModal(
+      <ChangeDisplayNameForm
+        displayName={user.displayName}
+        setShowModal={setShowModal}
+      />
+    );
     setShowModal(true);
   };
 
@@ -24,3 +29,19 @@ export const UserName = ({
     </div>
   );
 };
+
+function ChangeDisplayNameForm({ displayName, setShowModal }) {
+  const onSubmit = () => {
+    console.log('actualizando nombre de usuario');
+    setShowModal(false);
+  };
+
+  return (
+    <Form onSubmit={onSubmit}>
+      <Form.Field>
+        <Input defaultValue={displayName} />
+      </Form.Field>
+      <Button type="submit">Actualizar nombre</Button>
+    </Form>
+  );
+}

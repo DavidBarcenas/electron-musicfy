@@ -1,0 +1,28 @@
+.ui.form .field .input input {
+  background: $background-grey-light;
+  color: $light;
+  font-size: 16px;
+  border: 0;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background: $background-grey-light-hover;
+    color: $light;
+    border: 0;
+  }
+}
+
+.ui.form .button {
+  width: 100%;
+  margin-top: 10px;
+  background-color: $primary-color;
+  color: $light;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 50px;
+
+  &:hover {
+    background-color: $primary-color-hover;
+  }
+}
