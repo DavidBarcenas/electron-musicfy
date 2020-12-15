@@ -3,9 +3,16 @@ import { Button } from 'semantic-ui-react';
 import firebase from '../../utils/firebase';
 import 'firebase/auth';
 
-export const UserName = ({ user }) => {
+export const UserName = ({
+  user,
+  setShowModal,
+  setTitleModal,
+  setContentModal,
+}) => {
   const onEdit = () => {
-    console.log('Editando nombre de usuario');
+    setTitleModal('Actualizar Nombre');
+    setContentModal(<h3>Formulario</h3>);
+    setShowModal(true);
   };
 
   return (
