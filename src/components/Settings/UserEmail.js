@@ -3,6 +3,7 @@ import { Button, Form, Icon, Input } from 'semantic-ui-react';
 import { toast } from 'react-toastify';
 import firebase from '../../utils/firebase';
 import 'firebase/auth';
+import { reauthenticate } from '../../utils/api';
 
 export const UserEmail = ({
   user,
@@ -37,20 +38,14 @@ function ChangeEmailForm({ email, setShowModal }) {
   const [loading, setLoading] = useState(false);
 
   const onSubmit = () => {
-    console.log('form', formData);
-    // if (!formData || formData === email) {
-    //   setShowModal(false);
-    // } else {
-    //   setLoading(true);
-    //   firebase
-    //     .auth()
-    //     .currentUser.updateProfile({
-    //       email: formData,
-    //     })
-    //     .then(() => toast.success('Email actualizado'))
-    //     .catch(() => toast.error('Error al actualizar el email'))
-    //     .finally(() => setShowModal(false));
-    // }
+    if (!formData.email || !formData.psswd) {
+      setShowModal(false);
+    } else {
+      setLoading(true);
+      reauthenticate(formData.psswd)
+        .then(() => {})
+        .catch(() => {});
+    }
   };
 
   return (
