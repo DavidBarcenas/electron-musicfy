@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { Button, Form, Icon, Input } from 'semantic-ui-react';
+import { alertErrors } from '../../utils/alertErrors';
+import { reauthenticate } from '../../utils/api';
+import firebase from '../../utils/firebase';
+import 'firebase/auth';
 
 export const UserPsswd = ({ setShowModal, setTitleModal, setContentModal }) => {
   const onEdit = () => {
     setTitleModal('Actualizar contraseña');
-    setContentModal(<ChangePsswdForm />);
+    setContentModal(<ChangePsswdForm setShowModal={setShowModal} />);
     setShowModal(true);
   };
 
@@ -25,7 +29,7 @@ const initShowPsswd = {
   repeat: false,
 };
 
-function ChangePsswdForm() {
+function ChangePsswdForm({ setShowModal }) {
   const [loading, setloading] = useState(false);
   const [showPsswd, setShowPsswd] = useState(initShowPsswd);
   const [formData, setFormData] = useState({
@@ -50,7 +54,25 @@ function ChangePsswdForm() {
     } else if (formData.new.length < 6) {
       toast.warning('La nueva contraseña tiene que tener minimo 6 caracteres.');
     } else {
-      console.log('form', formData);
+      setloading(true);
+      reauthenticate(formData.current)
+        .then(() => {
+          const currentUser = firebase.auth().currentUser;
+          currentUser
+            .updatePassword(formData.new)
+            .then(() => {
+              toast.success('Contraseña actualizada.');
+              setloading(false);
+              setShowModal(false);
+              firebase.auth().signOut();
+            })
+            .catch((error) => alertErrors(error.code));
+        })
+        .catch((error) => {
+          setloading(false);
+          alertErrors(error.code);
+          return false;
+        });
     }
   };
 
