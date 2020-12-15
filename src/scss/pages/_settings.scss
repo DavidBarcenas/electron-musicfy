@@ -16,12 +16,21 @@
     border: 2px dashed #9a9a9a;
     border-radius: 50%;
     padding: 10px;
-    margin-bottom: 20px;
     cursor: pointer;
 
     .ui.image {
       width: 100px;
       border-radius: 500px;
     }
+  }
+}
+
+.user-name {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  h2 {
+    margin: 0 20px;
   }
 }
