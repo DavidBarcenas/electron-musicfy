@@ -29,24 +29,28 @@ export const UserEmail = ({
 };
 
 function ChangeEmailForm({ email, setShowModal }) {
-  const [formData, setformData] = useState(email);
+  const [formData, setformData] = useState({
+    email: '',
+    psswd: '',
+  });
   const [showPsswd, setShowPsswd] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const onSubmit = () => {
-    if (!formData || formData === email) {
-      setShowModal(false);
-    } else {
-      setLoading(true);
-      firebase
-        .auth()
-        .currentUser.updateProfile({
-          email: formData,
-        })
-        .then(() => toast.success('Email actualizado'))
-        .catch(() => toast.error('Error al actualizar el email'))
-        .finally(() => setShowModal(false));
-    }
+    console.log('form', formData);
+    // if (!formData || formData === email) {
+    //   setShowModal(false);
+    // } else {
+    //   setLoading(true);
+    //   firebase
+    //     .auth()
+    //     .currentUser.updateProfile({
+    //       email: formData,
+    //     })
+    //     .then(() => toast.success('Email actualizado'))
+    //     .catch(() => toast.error('Error al actualizar el email'))
+    //     .finally(() => setShowModal(false));
+    // }
   };
 
   return (
@@ -55,7 +59,7 @@ function ChangeEmailForm({ email, setShowModal }) {
         <Input
           type="email"
           defaultValue={email}
-          onChange={(e) => setformData(e.target.value)}
+          onChange={(e) => setformData({ ...formData, email: e.target.value })}
         />
       </Form.Field>
       <Form.Field>
@@ -69,7 +73,7 @@ function ChangeEmailForm({ email, setShowModal }) {
               link
             />
           }
-          onChange={(e) => setformData(e.target.value)}
+          onChange={(e) => setformData({ ...formData, psswd: e.target.value })}
         />
       </Form.Field>
       <Button type="submit" loading={loading}>
