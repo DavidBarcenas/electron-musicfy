@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Icon, Menu } from 'semantic-ui-react';
 import { isUserAdmnin } from '../../utils/api';
+import { ArtistForm } from '../Artists/ArtistForm';
 import { BasicModal } from '../Modal';
 
 export const MenuLeft = ({ user }) => {
@@ -28,7 +29,7 @@ export const MenuLeft = ({ user }) => {
     switch (type) {
       case 'artist':
         setTitleModal('Nuevo artista');
-        setContentModal('Formulario nuevo artista');
+        setContentModal(<ArtistForm />);
         setShowModal(true);
         break;
 
