@@ -29,7 +29,7 @@ export const MenuLeft = ({ user }) => {
     switch (type) {
       case 'artist':
         setTitleModal('Nuevo artista');
-        setContentModal(<ArtistForm />);
+        setContentModal(<ArtistForm setShowModal={setShowModal} />);
         setShowModal(true);
         break;
 
