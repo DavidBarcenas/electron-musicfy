@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Button, Form, Input } from 'semantic-ui-react';
+import { Button, Form, Image, Input } from 'semantic-ui-react';
 import NoImage from '../../assets/img/no-image.png';
 
 export const ArtistForm = ({ setShowModal }) => {
@@ -8,7 +8,9 @@ export const ArtistForm = ({ setShowModal }) => {
   const [file, setFile] = useState(null);
 
   const onDrop = useCallback((acceptedFile) => {
-    console.log(acceptedFile);
+    const file = acceptedFile[0];
+    setFile(file);
+    setBanner(URL.createObjectURL(file));
   });
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -25,11 +27,19 @@ export const ArtistForm = ({ setShowModal }) => {
   return (
     <Form className="add-artist-form" onSubmit={onSubmit}>
       <Form.Field className="artist-banner">
-        <div className="banner" {...getRootProps()}></div>
+        <div
+          className="banner"
+          {...getRootProps()}
+          style={{ backgroundImage: `url(${banner})` }}
+        ></div>
         <input {...getInputProps()} />
+        {!banner && <Image src={NoImage} />}
       </Form.Field>
       <Form.Field className="artist-avatar">
-        <div>Avatar</div>
+        <div
+          className="avatar"
+          style={{ backgroundImage: `url(${banner ? banner : NoImage})` }}
+        ></div>
       </Form.Field>
       <Form.Field>
         <Input placeholder="Nombre del artista" />
