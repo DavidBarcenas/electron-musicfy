@@ -1,11 +1,14 @@
 import React, { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
+import { toast } from 'react-toastify';
 import { Button, Form, Image, Input } from 'semantic-ui-react';
 import NoImage from '../../assets/img/no-image.png';
 
 export const ArtistForm = ({ setShowModal }) => {
   const [banner, setBanner] = useState(null);
   const [file, setFile] = useState(null);
+  const [formData, setFormData] = useState({ name: '' });
+  const [loading, setLoading] = useState(false);
 
   const onDrop = useCallback((acceptedFile) => {
     const file = acceptedFile[0];
@@ -20,8 +23,13 @@ export const ArtistForm = ({ setShowModal }) => {
   });
 
   const onSubmit = () => {
-    console.log('creando artista');
-    setShowModal(false);
+    if (!formData.name) {
+      toast.warning('Añade el nombre del artista');
+    } else if (!file) {
+      toast.warning('Añade el banner del artista');
+    } else {
+      setLoading(true);
+    }
   };
 
   return (
@@ -42,9 +50,14 @@ export const ArtistForm = ({ setShowModal }) => {
         ></div>
       </Form.Field>
       <Form.Field>
-        <Input placeholder="Nombre del artista" />
+        <Input
+          placeholder="Nombre del artista"
+          onChange={(e) => setFormData({ name: e.target.value })}
+        />
       </Form.Field>
-      <Button type="submit">Crear artista</Button>
+      <Button type="submit" loading={loading}>
+        Crear artista
+      </Button>
     </Form>
   );
 };
