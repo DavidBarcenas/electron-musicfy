@@ -5,6 +5,7 @@ import { Button, Form, Image, Input } from 'semantic-ui-react';
 import { v4 as uuidv4 } from 'uuid';
 import firebase from '../../utils/firebase';
 import 'firebase/storage';
+import 'firebase/firestore';
 import NoImage from '../../assets/img/no-image.png';
 
 export const ArtistForm = ({ setShowModal }) => {
@@ -26,7 +27,7 @@ export const ArtistForm = ({ setShowModal }) => {
   });
 
   const uploadImage = (fileName) => {
-    const ref = firebase.storage().ref().child(`artist/${fileName}`);
+    const ref = firebase.storage().ref().child(`artists/${fileName}`);
     return ref.put(file);
   };
 
@@ -40,12 +41,25 @@ export const ArtistForm = ({ setShowModal }) => {
       const fileName = uuidv4();
       uploadImage(fileName)
         .then(() => {
-          toast.success('Imagen subida correctamente.');
-          setLoading(false);
-          setShowModal(false);
+          firebase
+            .firestore()
+            .collection('artists')
+            .add({ name: formData.name, banner: fileName })
+            .then(() => {
+              toast.success('Artista creado correctamente.');
+              setLoading(false);
+              setShowModal(false);
+              setFormData({ name: '' });
+              setFile(null);
+              setBanner(null);
+            })
+            .catch(() => {
+              toast.error('Error al crear artista.');
+              setLoading(false);
+            });
         })
         .catch(() => {
-          toast.success('Error al subir la imagen.');
+          toast.error('Error al subir la imagen.');
           setLoading(false);
         });
     }
