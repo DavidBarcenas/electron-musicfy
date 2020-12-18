@@ -18,7 +18,7 @@ export const Home = () => {
           data.docs.map((artist) => {
             const data = artist.data();
             data.id = artist.id;
-            arrayArtists.push(data);
+            return arrayArtists.push(data);
           });
           setArtists(arrayArtists);
         }
@@ -29,7 +29,12 @@ export const Home = () => {
     <div className="home">
       <BannerHome />
       <div className="home-main">
-        <BasicSlider title="Ultimos artistas" data={artists} />
+        <BasicSlider
+          title="Ultimos artistas"
+          data={artists}
+          folder="artists"
+          urlName="artist"
+        />
       </div>
     </div>
   );
