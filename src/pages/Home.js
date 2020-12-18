@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { BasicSlider } from '../components/Sliders/BasicSlider';
 import { BannerHome } from '../components/BannerHome';
 import firebase from '../utils/firebase';
 import 'firebase/firestore';
@@ -27,7 +28,9 @@ export const Home = () => {
   return (
     <div className="home">
       <BannerHome />
-      <div className="home-main"></div>
+      <div className="home-main">
+        <BasicSlider title="Ultimos artistas" data={artists} />
+      </div>
     </div>
   );
 };
