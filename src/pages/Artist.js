@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import firebase from '../utils/firebase';
+import { BannerArtist } from '../components/Artists/BannerArtist';
 import 'firebase/firestore';
 
 export const Artist = () => {
@@ -17,8 +18,6 @@ export const Artist = () => {
   }, [id]);
 
   return (
-    <div>
-      <h1>Artist</h1>
-    </div>
+    <div className="artist">{artist && <BannerArtist artist={artist} />}</div>
   );
 };

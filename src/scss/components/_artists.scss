@@ -36,3 +36,48 @@
     }
   }
 }
+
+// Banner artist
+.banner-artist {
+  display: flex;
+  align-items: flex-end;
+  height: 400px;
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  top: -60px;
+  z-index: 1;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent 40%,
+      $background-grey-dark-light 100%
+    );
+  }
+
+  &-name {
+    margin: 0 0 70px 50px;
+    z-index: 1;
+
+    p {
+      margin-bottom: 0;
+      font-size: 14px;
+      font-weight: normal;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-size: 80px;
+      margin-top: 0;
+    }
+  }
+}

@@ -1,10 +1,12 @@
 .top-bar {
   height: 50px;
-  background: $background-grey-dark-light;
+  background: rgba($background-grey-dark-light, 0.1);
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
+  position: relative;
+  z-index: 5;
 
   &-left {
     i {
