@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { Artist } from '../pages/Artist';
+import { Artists } from '../pages/Artists';
 import { Home } from '../pages/Home';
 import { Settings } from '../pages/Settings';
 
@@ -12,7 +13,7 @@ export const Routes = ({ user, setReloadApp }) => {
           <Home />
         </Route>
         <Route exact path="/artists">
-          <h2>Artistas</h2>
+          <Artists />
         </Route>
         <Route exact path="/artist/:id">
           <Artist />
