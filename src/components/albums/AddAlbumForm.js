@@ -1,11 +1,33 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Button, Dropdown, Form, Image, Input } from 'semantic-ui-react';
 import NoImage from '../../assets/img/no-image.png';
+import firebase from '../../utils/firebase';
+import 'firebase/firestore';
 
 export const AddAlbumForm = ({ setShowModal }) => {
   const [albumImage, setAlbumImage] = useState(null);
   const [file, setFile] = useState(null);
+  const [artists, setArtists] = useState([]);
+
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection('artists')
+      .get()
+      .then((resp) => {
+        const arrayArtists = [];
+        resp.docs.map((item) => {
+          const data = item.data();
+          return arrayArtists.push({
+            key: item.id,
+            value: item.id,
+            text: data.name,
+          });
+        });
+        setArtists(arrayArtists);
+      });
+  }, []);
 
   const onDrop = useCallback((acceptedFile) => {
     const file = acceptedFile[0];
@@ -37,7 +59,14 @@ export const AddAlbumForm = ({ setShowModal }) => {
         </Form.Field>
         <Form.Field className="album-inputs" width={11}>
           <Input placeholder="Nombre del album" />
-          <Dropdown placeholder="El album pertenece..." search />
+          <Dropdown
+            placeholder="El album pertenece..."
+            search
+            fluid
+            selection
+            lazyLoad
+            options={artists}
+          />
         </Form.Field>
       </Form.Group>
       <Button type="submit">Crear album</Button>

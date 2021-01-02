@@ -30,3 +30,24 @@
 .ui.form .field .input i {
   color: $light;
 }
+
+.ui.form .ui.dropdown {
+  background-color: $background-grey-light;
+  font-size: 16px;
+  color: $light;
+  border: 0;
+
+  .search {
+    color: $light;
+  }
+
+  .menu {
+    background-color: $background-grey-light-hover;
+    border: 0 !important;
+
+    .item {
+      border-color: $border-grey-light;
+      color: $light;
+    }
+  }
+}
