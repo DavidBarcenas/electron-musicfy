@@ -72,7 +72,15 @@ export const MenuLeft = ({ user }) => {
             active={activeMenu === '/artists'}
             onClick={handleMenu}
           >
-            <Icon name="music" /> Artistas
+            <Icon name="user" /> Artistas
+          </Menu.Item>
+          <Menu.Item
+            as={Link}
+            to="/albums"
+            active={activeMenu === '/albums'}
+            onClick={handleMenu}
+          >
+            <Icon name="window maximize outline" /> Álbumes
           </Menu.Item>
         </div>
         {userAdmin && (

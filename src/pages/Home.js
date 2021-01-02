@@ -59,7 +59,7 @@ export const Home = () => {
           title="Ultimos álbumes"
           data={albums}
           folder="album"
-          urlName="album"
+          urlName="albums"
         />
       </div>
     </div>
