@@ -1,10 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Button, Dropdown, Form, Image, Input } from 'semantic-ui-react';
+import { toast } from 'react-toastify';
+import { v4 as uuidv4 } from 'uuid';
 import NoImage from '../../assets/img/no-image.png';
 import firebase from '../../utils/firebase';
 import 'firebase/firestore';
-import { toast } from 'react-toastify';
+import 'firebase/storage';
 
 export const AddAlbumForm = ({ setShowModal }) => {
   const [albumImage, setAlbumImage] = useState(null);
@@ -47,14 +49,27 @@ export const AddAlbumForm = ({ setShowModal }) => {
     onDrop,
   });
 
+  const uploadImage = (fileName) => {
+    const ref = firebase.storage().ref().child(`album/${fileName}`);
+    return ref.put(file);
+  };
+
   const onSubmit = () => {
     if (!formData.name || !formData.artists) {
       toast.warning('El nombre del álbum y el artista son obligatorios.');
     } else if (!file) {
       toast.warning('La imagen del álbum es obligatoria.');
     } else {
-      console.log('Creando album...');
       setLoading(true);
+      const fileName = uuidv4();
+      uploadImage(fileName)
+        .then(() => {
+          console.log('Imagen Subida');
+        })
+        .catch(() => {
+          toast.warning('Error al subir la imagen del álbum');
+          setLoading(false);
+        });
     }
   };
 
