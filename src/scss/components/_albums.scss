@@ -40,3 +40,18 @@
     font-size: 40px;
   }
 }
+
+.album-item {
+  text-align: center;
+  .avatar {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 150px;
+    width: 150px;
+    margin: auto;
+  }
+  h3 {
+    color: $font-grey;
+  }
+}
