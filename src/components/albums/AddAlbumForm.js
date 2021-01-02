@@ -64,7 +64,29 @@ export const AddAlbumForm = ({ setShowModal }) => {
       const fileName = uuidv4();
       uploadImage(fileName)
         .then(() => {
-          console.log('Imagen Subida');
+          firebase
+            .firestore()
+            .collection('albums')
+            .add({
+              name: formData.name,
+              artist: formData.artists,
+              image: fileName,
+            })
+            .then(() => {
+              toast.success('Álbum creado.');
+              setFormData({
+                name: '',
+                artists: '',
+              });
+              setFile(null);
+              setAlbumImage(null);
+              setLoading(false);
+              setShowModal(false);
+            })
+            .catch(() => {
+              toast.warning('Error al crear el álbum');
+              setLoading(false);
+            });
         })
         .catch(() => {
           toast.warning('Error al subir la imagen del álbum');
