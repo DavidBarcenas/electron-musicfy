@@ -9,6 +9,10 @@ export const AddAlbumForm = ({ setShowModal }) => {
   const [albumImage, setAlbumImage] = useState(null);
   const [file, setFile] = useState(null);
   const [artists, setArtists] = useState([]);
+  const [formData, setFormData] = useState({
+    name: '',
+    artists: '',
+  });
 
   useEffect(() => {
     firebase
@@ -42,7 +46,7 @@ export const AddAlbumForm = ({ setShowModal }) => {
   });
 
   const onSubmit = () => {
-    console.log('enviando form...');
+    console.log('enviando form...', formData);
   };
 
   return (
@@ -58,7 +62,10 @@ export const AddAlbumForm = ({ setShowModal }) => {
           {!albumImage && <Image src={NoImage} />}
         </Form.Field>
         <Form.Field className="album-inputs" width={11}>
-          <Input placeholder="Nombre del album" />
+          <Input
+            placeholder="Nombre del album"
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          />
           <Dropdown
             placeholder="El album pertenece..."
             search
@@ -66,6 +73,9 @@ export const AddAlbumForm = ({ setShowModal }) => {
             selection
             lazyLoad
             options={artists}
+            onChange={(e, data) =>
+              setFormData({ ...formData, artists: data.value })
+            }
           />
         </Form.Field>
       </Form.Group>
