@@ -54,6 +54,13 @@ export const Home = () => {
           folder="artists"
           urlName="artist"
         />
+
+        <BasicSlider
+          title="Ultimos álbumes"
+          data={albums}
+          folder="album"
+          urlName="album"
+        />
       </div>
     </div>
   );

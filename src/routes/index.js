@@ -7,7 +7,7 @@ import { Settings } from '../pages/Settings';
 
 export const Routes = ({ user, setReloadApp }) => {
   return (
-    <div>
+    <div className="content">
       <Switch>
         <Route exact path="/">
           <Home />

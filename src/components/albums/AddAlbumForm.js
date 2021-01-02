@@ -70,7 +70,7 @@ export const AddAlbumForm = ({ setShowModal }) => {
             .add({
               name: formData.name,
               artist: formData.artists,
-              image: fileName,
+              banner: fileName,
             })
             .then(() => {
               toast.success('Álbum creado.');

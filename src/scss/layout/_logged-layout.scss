@@ -17,7 +17,11 @@
   > .row > .column {
     padding: 0;
   }
-}
-
-.content {
+  .content {
+    height: calc(100vh - 105px);
+    overflow-y: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 }
