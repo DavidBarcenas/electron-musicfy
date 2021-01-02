@@ -1,7 +1,32 @@
-.ui.from.add-album-form {
+.ui.form.add-album-form {
   .album-inputs {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+  }
+
+  .fields {
+    margin: 0;
+  }
+  .album-avatar {
+    position: relative;
+    height: 150px;
+    width: 100%;
+    padding: 0 !important;
+
+    img {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .album-image {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
   }
 }
