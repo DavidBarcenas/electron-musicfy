@@ -4,11 +4,13 @@ import { Button, Dropdown, Form, Image, Input } from 'semantic-ui-react';
 import NoImage from '../../assets/img/no-image.png';
 import firebase from '../../utils/firebase';
 import 'firebase/firestore';
+import { toast } from 'react-toastify';
 
 export const AddAlbumForm = ({ setShowModal }) => {
   const [albumImage, setAlbumImage] = useState(null);
   const [file, setFile] = useState(null);
   const [artists, setArtists] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     artists: '',
@@ -46,7 +48,14 @@ export const AddAlbumForm = ({ setShowModal }) => {
   });
 
   const onSubmit = () => {
-    console.log('enviando form...', formData);
+    if (!formData.name || !formData.artists) {
+      toast.warning('El nombre del álbum y el artista son obligatorios.');
+    } else if (!file) {
+      toast.warning('La imagen del álbum es obligatoria.');
+    } else {
+      console.log('Creando album...');
+      setLoading(true);
+    }
   };
 
   return (
@@ -79,7 +88,9 @@ export const AddAlbumForm = ({ setShowModal }) => {
           />
         </Form.Field>
       </Form.Group>
-      <Button type="submit">Crear album</Button>
+      <Button type="submit" loading={loading}>
+        Crear album
+      </Button>
     </Form>
   );
 };
