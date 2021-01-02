@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Icon, Menu } from 'semantic-ui-react';
 import { isUserAdmnin } from '../../utils/api';
+import { AddAlbumForm } from '../albums/AddAlbumForm';
 import { ArtistForm } from '../Artists/ArtistForm';
 import { BasicModal } from '../Modal';
 
@@ -39,6 +40,12 @@ export const MenuLeft = ({ user }) => {
         setShowModal(true);
         break;
 
+      case 'album':
+        setTitleModal('Nueva canción');
+        setContentModal(<AddAlbumForm setShowModal={setShowModal} />);
+        setShowModal(true);
+        break;
+
       default:
         setTitleModal(null);
         setContentModal(null);
@@ -72,6 +79,9 @@ export const MenuLeft = ({ user }) => {
           <div className="footer">
             <Menu.Item onClick={() => handlerModal('artist')}>
               <Icon name="plus square outline" /> Nuevo artista
+            </Menu.Item>
+            <Menu.Item onClick={() => handlerModal('album')}>
+              <Icon name="plus square outline" /> Nuevo album
             </Menu.Item>
             <Menu.Item onClick={() => handlerModal('song')}>
               <Icon name="plus square outline" /> Nueva canción
