@@ -14,7 +14,7 @@ export const BasicSlider = ({ title, data, folder, urlName }) => {
     className: 'basic-slider-list',
   };
 
-  if (data.length < 5) {
+  if (data.length < 2) {
     return null;
   }
 
