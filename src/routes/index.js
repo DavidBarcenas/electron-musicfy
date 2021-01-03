@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import { Album } from '../pages/Album';
 import { Albums } from '../pages/Albums';
 import { Artist } from '../pages/Artist';
 import { Artists } from '../pages/Artists';
@@ -21,6 +22,9 @@ export const Routes = ({ user, setReloadApp }) => {
         </Route>
         <Route exact path="/albums">
           <Albums />
+        </Route>
+        <Route exact path="/album/:id">
+          <Album />
         </Route>
         <Route exact path="/settings">
           <Settings user={user} setReloadApp={setReloadApp} />
