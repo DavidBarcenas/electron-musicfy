@@ -55,3 +55,33 @@
     color: $font-grey;
   }
 }
+
+.album {
+  margin: 50px;
+}
+
+.album-header {
+  display: flex;
+  .image {
+    width: 200px;
+    height: 200px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+.album-info {
+  margin-left: 20px;
+  h1 {
+    font-size: 35px;
+  }
+
+  span {
+    color: $light;
+  }
+}
+
+.album-songs {
+  margin-top: 40px;
+}

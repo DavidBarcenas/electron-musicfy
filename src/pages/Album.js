@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import firebase from '../utils/firebase';
 import 'firebase/firestore';
 import 'firebase/storage';
+import { Loader } from 'semantic-ui-react';
 
 export const Album = () => {
   const { id } = useParams();
@@ -46,9 +47,27 @@ export const Album = () => {
     }
   }, [album]);
 
+  if (!album || !artist) {
+    return <Loader active>Cargando...</Loader>;
+  }
+
   return (
-    <div>
-      <h1>Album</h1>
+    <div className="album">
+      <div className="album-header">
+        <div
+          className="image"
+          style={{ backgroundImage: `url(${albumImage})` }}
+        ></div>
+        <div className="album-info">
+          <h1>{album.name}</h1>
+          <p>
+            De <span className="album-artist">{artist.name}</span>
+          </p>
+        </div>
+      </div>
+      <div className="album-songs">
+        <p>Lista de canciones...</p>
+      </div>
     </div>
   );
 };
