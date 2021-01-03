@@ -8,6 +8,7 @@ export const Album = () => {
   const { id } = useParams();
   const [album, setAlbum] = useState(null);
   const [albumImage, setAlbumImage] = useState(null);
+  const [artist, setArtist] = useState(null);
 
   useEffect(() => {
     firebase
@@ -28,6 +29,20 @@ export const Album = () => {
         .getDownloadURL()
         .then((url) => setAlbumImage(url))
         .catch((err) => console.log('No se pudo obtener la imagen del álbum'));
+    }
+  }, [album]);
+
+  useEffect(() => {
+    if (album) {
+      firebase
+        .firestore()
+        .collection('artists')
+        .doc(album.artist)
+        .get()
+        .then((resp) => setArtist(resp.data()))
+        .catch((err) =>
+          console.log('No se pudo obtener la información del artista.')
+        );
     }
   }, [album]);
 
