@@ -5,6 +5,7 @@ import { isUserAdmnin } from '../../utils/api';
 import { AddAlbumForm } from '../albums/AddAlbumForm';
 import { ArtistForm } from '../Artists/ArtistForm';
 import { BasicModal } from '../Modal';
+import { AddSongForm } from '../Songs/AddSongForm';
 
 export const MenuLeft = ({ user }) => {
   const location = useLocation();
@@ -36,7 +37,7 @@ export const MenuLeft = ({ user }) => {
 
       case 'song':
         setTitleModal('Nueva canción');
-        setContentModal('Formulario nueva canción');
+        setContentModal(<AddSongForm setShowModal={setShowModal} />);
         setShowModal(true);
         break;
 
