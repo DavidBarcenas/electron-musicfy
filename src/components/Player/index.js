@@ -1,19 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import { Grid, Icon, Image, Input, Progress } from 'semantic-ui-react';
 
-const songData = {
-  image:
-    'https://firebasestorage.googleapis.com/v0/b/musicfy-5cc74.appspot.com/o/album%2F6a035d03-35a9-4fc3-974c-1280d6d975e7?alt=media&token=a479fdcd-710a-4aca-9867-e88158e7b817',
-  name: 'Un día en suburbia',
-  url: '',
-};
-
-export const Player = () => {
+export const Player = ({ songData }) => {
   const [playerSeconds, setPlayerSeconds] = useState(0);
   const [totalSeconds, setTotalSeconds] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [volume, setVolume] = useState(0.3);
+
+  useEffect(() => {
+    if (songData?.url) {
+      onStart();
+    }
+  }, [songData]);
 
   const onStart = () => {
     setPlaying(true);
@@ -59,7 +58,7 @@ export const Player = () => {
             max={1}
             step={0.01}
             value={volume}
-            onChange={(e, data) => setVolume(data.value)}
+            onChange={(e, data) => setVolume(Number(data.value))}
           />
         </Grid.Column>
       </Grid>

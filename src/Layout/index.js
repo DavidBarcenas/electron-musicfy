@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Routes } from '../routes';
 import { Grid } from 'semantic-ui-react';
@@ -7,6 +7,16 @@ import { Topbar } from '../components/Topbar';
 import { Player } from '../components/Player';
 
 export const LoggedLayout = ({ user, setReloadApp }) => {
+  const [songData, setSongData] = useState(null);
+
+  const playerSong = (albumImage, songName, songUrl) => {
+    setSongData({
+      url: songUrl,
+      name: songName,
+      image: albumImage,
+    });
+  };
+
   return (
     <Router>
       <Grid className="logged-layout">
@@ -21,7 +31,7 @@ export const LoggedLayout = ({ user, setReloadApp }) => {
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={16}>
-            <Player />
+            <Player songData={songData} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
