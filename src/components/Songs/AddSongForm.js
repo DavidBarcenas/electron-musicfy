@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Dropdown, Form, Input } from 'semantic-ui-react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Button, Dropdown, Form, Icon, Input } from 'semantic-ui-react';
+import { useDropzone } from 'react-dropzone';
 import firebase from '../../utils/firebase';
 import 'firebase/firestore';
 
@@ -9,6 +10,7 @@ const onSubmit = () => {
 
 export const AddSongForm = (setShowModal) => {
   const [albums, setAlbums] = useState([]);
+  const [file, setFile] = useState(null);
 
   useEffect(() => {
     firebase
@@ -28,6 +30,17 @@ export const AddSongForm = (setShowModal) => {
       });
   }, []);
 
+  const onDrop = useCallback((acceptedFile) => {
+    const file = acceptedFile[0];
+    setFile(file);
+  }, []);
+
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: '.mp3',
+    noKeyboard: true,
+    onDrop,
+  });
+
   return (
     <Form className="add-song-form" onSubmit={onSubmit}>
       <Form.Field>
@@ -43,7 +56,18 @@ export const AddSongForm = (setShowModal) => {
         />
       </Form.Field>
       <Form.Field>
-        <div>UploadSong</div>
+        <div {...getRootProps()} className="song-upload">
+          <input {...getInputProps()} />
+          <Icon name="cloud upload" className={file && 'load'} />
+          <div>
+            <p>Arrastra tu canción o haz click aquí</p>
+            {file && (
+              <p>
+                Canción subida: <span>{file.name}</span>
+              </p>
+            )}
+          </div>
+        </div>
       </Form.Field>
       <Button type="submit">Subir canción</Button>
     </Form>
