@@ -4,6 +4,7 @@ import { Routes } from '../routes';
 import { Grid } from 'semantic-ui-react';
 import { MenuLeft } from '../components/MenuLeft';
 import { Topbar } from '../components/Topbar';
+import { Player } from '../components/Player';
 
 export const LoggedLayout = ({ user, setReloadApp }) => {
   return (
@@ -20,7 +21,7 @@ export const LoggedLayout = ({ user, setReloadApp }) => {
         </Grid.Row>
         <Grid.Row>
           <Grid.Column width={16}>
-            <h2>Player</h2>
+            <Player />
           </Grid.Column>
         </Grid.Row>
       </Grid>
