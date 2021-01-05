@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import ReactPlayer from 'react-player';
 import { Grid, Icon, Image, Input, Progress } from 'semantic-ui-react';
 
 const songData = {
   image:
     'https://firebasestorage.googleapis.com/v0/b/musicfy-5cc74.appspot.com/o/album%2F6a035d03-35a9-4fc3-974c-1280d6d975e7?alt=media&token=a479fdcd-710a-4aca-9867-e88158e7b817',
   name: 'Un día en suburbia',
+  url: '',
 };
 
 export const Player = () => {
@@ -19,6 +21,11 @@ export const Player = () => {
 
   const onPause = () => {
     setPlaying(false);
+  };
+
+  const onProgress = (data) => {
+    setPlayerSeconds(data.playedSeconds);
+    setTotalSeconds(data.loadedSeconds);
   };
 
   return (
@@ -56,6 +63,15 @@ export const Player = () => {
           />
         </Grid.Column>
       </Grid>
+      <ReactPlayer
+        className="react-player"
+        url={songData?.url}
+        playing={playing}
+        height="0"
+        width="0"
+        volume={volume}
+        onProgress={(e) => onProgress(e)}
+      />
     </div>
   );
 };
