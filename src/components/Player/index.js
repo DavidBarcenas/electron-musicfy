@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Icon, Image, Progress } from 'semantic-ui-react';
+import { Grid, Icon, Image, Input, Progress } from 'semantic-ui-react';
 
 const songData = {
   image:
@@ -11,6 +11,7 @@ export const Player = () => {
   const [playerSeconds, setPlayerSeconds] = useState(0);
   const [totalSeconds, setTotalSeconds] = useState(0);
   const [playing, setPlaying] = useState(false);
+  const [volume, setVolume] = useState(0.3);
 
   const onStart = () => {
     setPlaying(true);
@@ -43,7 +44,16 @@ export const Player = () => {
           />
         </Grid.Column>
         <Grid.Column width={4} className="right">
-          Right
+          <Input
+            type="range"
+            name="volume"
+            label={<Icon name="volume up" />}
+            min={0}
+            max={1}
+            step={0.01}
+            value={volume}
+            onChange={(e, data) => setVolume(data.value)}
+          />
         </Grid.Column>
       </Grid>
     </div>

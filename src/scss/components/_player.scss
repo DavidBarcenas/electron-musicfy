@@ -54,3 +54,24 @@
     }
   }
 }
+
+.ui.grid > .column:not(.row).right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  .ui.input {
+    i {
+      color: $font-grey;
+      margin-right: 15px;
+    }
+
+    input {
+      width: 120px;
+      padding-left: 0;
+      padding-right: 0;
+      height: 3px;
+      margin-top: 18px;
+    }
+  }
+}
