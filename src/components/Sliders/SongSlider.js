@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
+import firebase from '../../utils/firebase';
+import 'firebase/firestore';
+import 'firebase/storage';
 
 export const SongSlider = ({ title, data }) => {
   const settings = {
@@ -29,5 +32,27 @@ export const SongSlider = ({ title, data }) => {
 };
 
 function SliderItem({ item }) {
+  const [banner, setBanner] = useState(null);
+  const [album, setAlbum] = useState(null);
+
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection('albums')
+      .doc(item.album)
+      .get()
+      .then((res) => {
+        setAlbum({ ...res.data(), id: res.id });
+        getImage(album);
+      });
+  }, [item]);
+
+  const getImage = (album) => {
+    firebase
+      .storage()
+      .ref(`album/${album.banner}`)
+      .getDownloadURL()
+      .then((url) => setBanner(url));
+  };
   return <div>{item.name}</div>;
 }
