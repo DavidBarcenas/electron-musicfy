@@ -4,13 +4,13 @@ import { useDropzone } from 'react-dropzone';
 import firebase from '../../utils/firebase';
 import 'firebase/firestore';
 
-const onSubmit = () => {
-  console.log('enviando formulario...');
-};
-
 export const AddSongForm = (setShowModal) => {
   const [albums, setAlbums] = useState([]);
   const [file, setFile] = useState(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    album: '',
+  });
 
   useEffect(() => {
     firebase
@@ -41,10 +41,20 @@ export const AddSongForm = (setShowModal) => {
     onDrop,
   });
 
+  const onSubmit = () => {
+    console.log('enviando formulario...', formData);
+  };
+
   return (
     <Form className="add-song-form" onSubmit={onSubmit}>
       <Form.Field>
-        <Input placeholder="Nombre de la canción" />
+        <Input
+          placeholder="Nombre de la canción"
+          onChange={({ target }) =>
+            setFormData({ ...formData, name: target.value })
+          }
+          value={formData.name}
+        />
       </Form.Field>
       <Form.Field>
         <Dropdown
@@ -53,6 +63,9 @@ export const AddSongForm = (setShowModal) => {
           selection
           lazyLoad
           options={albums}
+          onChange={(e, data) =>
+            setFormData({ ...formData, album: data.value })
+          }
         />
       </Form.Field>
       <Form.Field>
