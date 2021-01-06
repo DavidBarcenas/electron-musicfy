@@ -3,6 +3,7 @@ import { BasicSlider } from '../components/Sliders/BasicSlider';
 import { BannerHome } from '../components/BannerHome';
 import firebase from '../utils/firebase';
 import 'firebase/firestore';
+import { SongSlider } from '../components/Sliders/SongSlider';
 
 export const Home = () => {
   const [artists, setArtists] = useState([]);
@@ -81,6 +82,8 @@ export const Home = () => {
           folder="album"
           urlName="albums"
         />
+
+        <SongSlider title="Últimas canciones" data={songs} />
       </div>
     </div>
   );
