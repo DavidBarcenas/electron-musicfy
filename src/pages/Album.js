@@ -58,7 +58,7 @@ export const Album = () => {
         .get()
         .then((resp) => {
           const arraySongs = [];
-          resp.docs.map((song) => {
+          resp?.docs.map((song) => {
             arraySongs.push({ ...song.data(), id: song.id });
           });
           setSongs(arraySongs);
