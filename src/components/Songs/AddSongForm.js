@@ -3,10 +3,12 @@ import { Button, Dropdown, Form, Icon, Input } from 'semantic-ui-react';
 import { useDropzone } from 'react-dropzone';
 import firebase from '../../utils/firebase';
 import 'firebase/firestore';
+import { toast } from 'react-toastify';
 
 export const AddSongForm = (setShowModal) => {
   const [albums, setAlbums] = useState([]);
   const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     album: '',
@@ -42,7 +44,14 @@ export const AddSongForm = (setShowModal) => {
   });
 
   const onSubmit = () => {
-    console.log('enviando formulario...', formData);
+    if (!formData.name || !formData.album) {
+      toast.warning('El nombre de la canción y el álbum son requeridos.');
+    } else if (!file) {
+      toast.warning('El archivo es requerido.');
+    } else {
+      setLoading(true);
+      console.log('valid!!');
+    }
   };
 
   return (
