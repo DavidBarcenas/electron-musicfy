@@ -4,8 +4,10 @@ const isDev = require('electron-is-dev');
 
 function createWindow() {
   let win = new BrowserWindow({
-    width: 900,
-    height: 680,
+    width: 1500,
+    height: 1000,
+    title: 'MusicFy',
+    titleBarStyle: 'hiddenInset',
     webPreferences: {
       nodeIntegration: true,
     },
