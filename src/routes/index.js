@@ -18,7 +18,7 @@ export const Routes = ({ user, setReloadApp, playerSong }) => {
           <Artists />
         </Route>
         <Route exact path="/artist/:id">
-          <Artist />
+          <Artist playerSong={playerSong} />
         </Route>
         <Route exact path="/albums">
           <Albums />

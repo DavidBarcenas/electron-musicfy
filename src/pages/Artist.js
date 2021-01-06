@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import firebase from '../utils/firebase';
 import { BannerArtist } from '../components/Artists/BannerArtist';
-import 'firebase/firestore';
 import { BasicSlider } from '../components/Sliders/BasicSlider';
+import { SongSlider } from '../components/Sliders/SongSlider';
+import firebase from '../utils/firebase';
+import 'firebase/firestore';
 
-export const Artist = () => {
+export const Artist = ({ playerSong }) => {
   const [artist, setArtist] = useState(null);
   const [albums, setAlbums] = useState([]);
   const [songs, setSongs] = useState([]);
@@ -67,6 +68,7 @@ export const Artist = () => {
           urlName="albums"
         />
       </div>
+      <SongSlider title="Canciones" data={songs} playerSong={playerSong} />
     </div>
   );
 };
