@@ -1,9 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Dropdown, Form, Icon, Input } from 'semantic-ui-react';
 import { useDropzone } from 'react-dropzone';
+import { toast } from 'react-toastify';
+import { v4 as uuidv4 } from 'uuid';
 import firebase from '../../utils/firebase';
 import 'firebase/firestore';
-import { toast } from 'react-toastify';
+import 'firebase/storage';
 
 export const AddSongForm = (setShowModal) => {
   const [albums, setAlbums] = useState([]);
@@ -43,6 +45,11 @@ export const AddSongForm = (setShowModal) => {
     onDrop,
   });
 
+  const uploadSong = (fileName) => {
+    const ref = firebase.storage().ref().child(`songs/${fileName}`);
+    return ref.put(file);
+  };
+
   const onSubmit = () => {
     if (!formData.name || !formData.album) {
       toast.warning('El nombre de la canción y el álbum son requeridos.');
@@ -50,7 +57,15 @@ export const AddSongForm = (setShowModal) => {
       toast.warning('El archivo es requerido.');
     } else {
       setLoading(true);
-      console.log('valid!!');
+      const fileName = uuidv4();
+      uploadSong(fileName)
+        .then((resp) => {
+          console.log('OK!');
+        })
+        .catch(() => {
+          setLoading(false);
+          toast.error('Error al subir la canción.');
+        });
     }
   };
 
@@ -91,7 +106,9 @@ export const AddSongForm = (setShowModal) => {
           </div>
         </div>
       </Form.Field>
-      <Button type="submit">Subir canción</Button>
+      <Button type="submit" loading={loading}>
+        Subir canción
+      </Button>
     </Form>
   );
 };
