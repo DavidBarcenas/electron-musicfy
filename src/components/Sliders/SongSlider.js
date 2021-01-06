@@ -3,6 +3,8 @@ import Slider from 'react-slick';
 import firebase from '../../utils/firebase';
 import 'firebase/firestore';
 import 'firebase/storage';
+import { Icon } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 export const SongSlider = ({ title, data }) => {
   const settings = {
@@ -43,7 +45,7 @@ function SliderItem({ item }) {
       .get()
       .then((res) => {
         setAlbum({ ...res.data(), id: res.id });
-        getImage(album);
+        getImage({ ...res.data() });
       });
   }, [item]);
 
@@ -54,5 +56,14 @@ function SliderItem({ item }) {
       .getDownloadURL()
       .then((url) => setBanner(url));
   };
-  return <div>{item.name}</div>;
+  return (
+    <div className="song-item">
+      <div className="avatar" style={{ backgroundImage: `url(${banner})` }}>
+        <Icon name="play circle outline" />
+      </div>
+      <Link to={`/album/${album?.id}`}>
+        <h3>{item.name}</h3>
+      </Link>
+    </div>
+  );
 }

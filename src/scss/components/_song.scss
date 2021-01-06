@@ -34,3 +34,49 @@
     }
   }
 }
+
+.song-slider-list {
+  .slick-prev {
+    left: -25px;
+  }
+  .slick-next {
+    right: -25px;
+  }
+}
+
+.song-item {
+  padding: 20px;
+
+  .avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 160px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+
+    &:hover i {
+      opacity: 1;
+    }
+  }
+
+  i {
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.25s ease-in-out;
+  }
+
+  i:before {
+    font-size: 50px;
+    color: $light;
+  }
+
+  h3 {
+    color: $font-grey;
+    margin-top: 10px;
+    font-size: 16px;
+  }
+}
