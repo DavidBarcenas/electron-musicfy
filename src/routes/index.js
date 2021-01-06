@@ -7,12 +7,12 @@ import { Artists } from '../pages/Artists';
 import { Home } from '../pages/Home';
 import { Settings } from '../pages/Settings';
 
-export const Routes = ({ user, setReloadApp }) => {
+export const Routes = ({ user, setReloadApp, playerSong }) => {
   return (
     <div className="content">
       <Switch>
         <Route exact path="/">
-          <Home />
+          <Home playerSong={playerSong} />
         </Route>
         <Route exact path="/artists">
           <Artists />

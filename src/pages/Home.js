@@ -5,7 +5,7 @@ import firebase from '../utils/firebase';
 import 'firebase/firestore';
 import { SongSlider } from '../components/Sliders/SongSlider';
 
-export const Home = () => {
+export const Home = ({ playerSong }) => {
   const [artists, setArtists] = useState([]);
   const [albums, setAlbums] = useState([]);
   const [songs, setSongs] = useState([]);
@@ -83,7 +83,11 @@ export const Home = () => {
           urlName="albums"
         />
 
-        <SongSlider title="Últimas canciones" data={songs} />
+        <SongSlider
+          title="Últimas canciones"
+          data={songs}
+          playerSong={playerSong}
+        />
       </div>
     </div>
   );

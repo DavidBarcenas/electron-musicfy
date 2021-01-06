@@ -5,16 +5,24 @@ import { Grid } from 'semantic-ui-react';
 import { MenuLeft } from '../components/MenuLeft';
 import { Topbar } from '../components/Topbar';
 import { Player } from '../components/Player';
+import firebase from '../utils/firebase';
+import 'firebase/storage';
 
 export const LoggedLayout = ({ user, setReloadApp }) => {
   const [songData, setSongData] = useState(null);
 
   const playerSong = (albumImage, songName, songUrl) => {
-    setSongData({
-      url: songUrl,
-      name: songName,
-      image: albumImage,
-    });
+    firebase
+      .storage()
+      .ref(`songs/${songUrl}`)
+      .getDownloadURL()
+      .then((url) => {
+        setSongData({
+          url: url,
+          name: songName,
+          image: albumImage,
+        });
+      });
   };
 
   return (
@@ -26,7 +34,11 @@ export const LoggedLayout = ({ user, setReloadApp }) => {
           </Grid.Column>
           <Grid.Column className="logged-layout-main" width={13}>
             <Topbar user={user} />
-            <Routes user={user} setReloadApp={setReloadApp} />
+            <Routes
+              user={user}
+              setReloadApp={setReloadApp}
+              playerSong={playerSong}
+            />
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>

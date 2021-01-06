@@ -6,7 +6,7 @@ import 'firebase/storage';
 import { Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
-export const SongSlider = ({ title, data }) => {
+export const SongSlider = ({ title, data, playerSong }) => {
   const settings = {
     dots: false,
     infinity: true,
@@ -26,14 +26,14 @@ export const SongSlider = ({ title, data }) => {
       <h2>{title}</h2>
       <Slider {...settings}>
         {data.map((item) => (
-          <SliderItem key={item.id} item={item} />
+          <SliderItem key={item.id} item={item} playerSong={playerSong} />
         ))}
       </Slider>
     </div>
   );
 };
 
-function SliderItem({ item }) {
+function SliderItem({ item, playerSong }) {
   const [banner, setBanner] = useState(null);
   const [album, setAlbum] = useState(null);
 
@@ -56,9 +56,18 @@ function SliderItem({ item }) {
       .getDownloadURL()
       .then((url) => setBanner(url));
   };
+
+  const onPlay = () => {
+    playerSong(banner, item.name, item.fileName);
+  };
+
   return (
     <div className="song-item">
-      <div className="avatar" style={{ backgroundImage: `url(${banner})` }}>
+      <div
+        className="avatar"
+        style={{ backgroundImage: `url(${banner})` }}
+        onClick={onPlay}
+      >
         <Icon name="play circle outline" />
       </div>
       <Link to={`/album/${album?.id}`}>
