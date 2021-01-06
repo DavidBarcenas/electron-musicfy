@@ -10,6 +10,7 @@ export const Album = () => {
   const [album, setAlbum] = useState(null);
   const [albumImage, setAlbumImage] = useState(null);
   const [artist, setArtist] = useState(null);
+  const [songs, setSongs] = useState(null);
 
   useEffect(() => {
     firebase
@@ -17,7 +18,7 @@ export const Album = () => {
       .collection('albums')
       .doc(id)
       .get()
-      .then((resp) => setAlbum(resp.data()))
+      .then((resp) => setAlbum({ ...resp.data(), id: resp.id }))
       .catch((err) => console.log('No se pudo obtener el álbum.'));
   }, [id]);
 
@@ -41,6 +42,26 @@ export const Album = () => {
         .doc(album.artist)
         .get()
         .then((resp) => setArtist(resp.data()))
+        .catch((err) =>
+          console.log('No se pudo obtener la información del artista.')
+        );
+    }
+  }, [album]);
+
+  useEffect(() => {
+    if (album) {
+      firebase
+        .firestore()
+        .collection('songs')
+        .where('album', '==', album?.id)
+        .get()
+        .then((resp) => {
+          const arraySongs = [];
+          resp.docs.map((song) => {
+            arraySongs.push({ ...song.data(), id: song.id });
+          });
+          setSongs(arraySongs);
+        })
         .catch((err) =>
           console.log('No se pudo obtener la información del artista.')
         );
