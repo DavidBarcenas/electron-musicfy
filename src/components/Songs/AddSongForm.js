@@ -7,7 +7,7 @@ import firebase from '../../utils/firebase';
 import 'firebase/firestore';
 import 'firebase/storage';
 
-export const AddSongForm = (setShowModal) => {
+export const AddSongForm = ({ setShowModal }) => {
   const [albums, setAlbums] = useState([]);
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -59,8 +59,30 @@ export const AddSongForm = (setShowModal) => {
       setLoading(true);
       const fileName = uuidv4();
       uploadSong(fileName)
-        .then((resp) => {
-          console.log('OK!');
+        .then(() => {
+          firebase
+            .firestore()
+            .collection('songs')
+            .add({
+              name: formData.name,
+              album: formData.album,
+              fileName: fileName,
+            })
+            .then(() => {
+              toast.success('Canción agregada correctamente.');
+              setLoading(false);
+              setFormData({
+                name: '',
+                album: '',
+              });
+              setFile(null);
+              setAlbums([]);
+              setShowModal(false);
+            })
+            .catch(() => {
+              setLoading(false);
+              toast.error('Error al crear registro de canción.');
+            });
         })
         .catch(() => {
           setLoading(false);
