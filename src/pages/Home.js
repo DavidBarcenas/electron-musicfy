@@ -7,6 +7,7 @@ import 'firebase/firestore';
 export const Home = () => {
   const [artists, setArtists] = useState([]);
   const [albums, setAlbums] = useState([]);
+  const [songs, setSongs] = useState([]);
 
   useEffect(() => {
     firebase
@@ -40,6 +41,25 @@ export const Home = () => {
             return arrayAlbums.push(data);
           });
           setAlbums(arrayAlbums);
+        }
+      });
+  }, []);
+
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection('songs')
+      .limit(10)
+      .get()
+      .then((data) => {
+        const arraySongs = [];
+        if (data.docs.length > 0) {
+          data.docs.map((song) => {
+            const data = song.data();
+            data.id = song.id;
+            return arraySongs.push(data);
+          });
+          setSongs(arraySongs);
         }
       });
   }, []);
