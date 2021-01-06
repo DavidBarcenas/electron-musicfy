@@ -8,6 +8,7 @@ import { BasicSlider } from '../components/Sliders/BasicSlider';
 export const Artist = () => {
   const [artist, setArtist] = useState(null);
   const [albums, setAlbums] = useState([]);
+  const [songs, setSongs] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
@@ -33,6 +34,27 @@ export const Artist = () => {
         setAlbums(albumsTemp);
       });
   }, [id]);
+
+  useEffect(() => {
+    const arraySongs = [];
+    (async () => {
+      await Promise.all(
+        albums.map(async (album) => {
+          await firebase
+            .firestore()
+            .collection('songs')
+            .where('album', '==', album.id)
+            .get()
+            .then((resp) => {
+              resp?.docs.map((song) => {
+                return arraySongs.push({ ...song.data(), id: song.id });
+              });
+            });
+        })
+      );
+      setSongs(arraySongs);
+    })();
+  }, [albums]);
 
   return (
     <div className="artist">
