@@ -6,7 +6,7 @@ import 'firebase/storage';
 import { Loader } from 'semantic-ui-react';
 import { ListSongs } from '../components/Songs/ListSongs';
 
-export const Album = () => {
+export const Album = ({ playerSong }) => {
   const { id } = useParams();
   const [album, setAlbum] = useState(null);
   const [albumImage, setAlbumImage] = useState(null);
@@ -88,7 +88,11 @@ export const Album = () => {
         </div>
       </div>
       <div className="album-songs">
-        <ListSongs songs={songs} albumImg={albumImage} />
+        <ListSongs
+          songs={songs}
+          albumImage={albumImage}
+          playerSong={playerSong}
+        />
       </div>
     </div>
   );
